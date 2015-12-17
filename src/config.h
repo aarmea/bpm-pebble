@@ -1,0 +1,19 @@
+#pragma once
+
+#include <pebble.h>
+
+#define BG_COLOR GColorWhite
+
+#define ACTION_BAR_WIDTH_WITH_GAP (ACTION_BAR_WIDTH + 12)
+
+#define BPM_FONT FONT_KEY_BITHAM_42_BOLD
+#define BPM_FONT_HEIGHT 42
+#define BPM_DEFAULT "0.0"
+
+#define BPM_HINT_FONT FONT_KEY_GOTHIC_24_BOLD
+#define BPM_HINT_FONT_HEIGHT 24
+#define BPM_HINT_TEXT "BPM:"
+
+#define BPM_TEXT_BUFFER_SIZE 10
+
+#define TAP_TIMEOUT_SECONDS 2

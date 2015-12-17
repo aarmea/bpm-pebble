@@ -1,0 +1,24 @@
+{
+  "uuid": "0BA853DB-D095-4CD3-92DA-F362900AB193",
+  "shortName": "BPM Pebble",
+  "longName": "BPM Pebble",
+  "companyName": "Albert Armea",
+  "versionLabel": "0.1",
+  "sdkVersion": "3",
+  "targetPlatforms": ["aplite", "basalt", "chalk"],
+  "watchapp": {
+    "watchface": false
+  },
+  "appKeys": {
+    "dummy": 0
+  },
+  "resources": {
+    "media": [
+      {
+        "type": "png",
+        "name": "ICON_TEMPO_TAP",
+        "file": "icons/tempo_tap.png"
+      }
+    ]
+  }
+}
