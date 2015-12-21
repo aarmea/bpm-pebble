@@ -24,14 +24,12 @@ struct time_ms_t difftime_time_ms_t(struct time_ms_t a, struct time_ms_t b) {
   return diff;
 }
 
-void bpm_update() {
+void bpm_update(struct time_ms_t time_now) {
   if (s_tap_count == 0) {
     s_bpm = 0;
     return;
   }
 
-  struct time_ms_t time_now;
-  time_ms(&time_now.s, &time_now.ms);
   struct time_ms_t total_time = difftime_time_ms_t(time_now, s_first_tap);
 
   // This representation will overflow if s_first_tap is more than 2^32
@@ -52,7 +50,7 @@ void bpm_manual_tap() {
   } else {
     // Normal case
     ++s_tap_count;
-    bpm_update();
+    bpm_update(time_now);
   }
   s_last_tap = time_now;
 }
