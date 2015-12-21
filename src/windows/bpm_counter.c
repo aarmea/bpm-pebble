@@ -13,7 +13,10 @@ static GPoint s_center;
 static void bpm_counter_window_update_bpm(void *context) {
   bpm_manual_tap();
   bpm10_t bpm = bpm_get_bpm10();
-  snprintf(s_bpm_text_buffer, BPM_TEXT_BUFFER_SIZE, "%u.%u", bpm/10, bpm%10);
+  if (bpm == 0)
+    snprintf(s_bpm_text_buffer, BPM_TEXT_BUFFER_SIZE, "%s", BPM_DEFAULT);
+  else
+    snprintf(s_bpm_text_buffer, BPM_TEXT_BUFFER_SIZE, "%u.%u", bpm/10, bpm%10);
   layer_mark_dirty((Layer *) s_bpm_hint_text_layer);
 }
 
