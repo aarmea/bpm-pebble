@@ -10,15 +10,16 @@ static TextLayer *s_bpm_hint_text_layer;
 static ActionBarLayer *s_action_bar_layer;
 static GPoint s_center;
 
-static void bpm_counter_window_update_bpm() {
+static void bpm_counter_window_update_bpm(void *context) {
   bpm_manual_tap();
   bpm10_t bpm = bpm_get_bpm10();
   snprintf(s_bpm_text_buffer, BPM_TEXT_BUFFER_SIZE, "%u.%u", bpm/10, bpm%10);
+  layer_mark_dirty((Layer *) s_bpm_hint_text_layer);
 }
 
 static void bpm_counter_window_click_config() {
-  window_single_click_subscribe(BUTTON_ID_SELECT,
-      bpm_counter_window_update_bpm);
+  window_raw_click_subscribe(BUTTON_ID_SELECT, (ClickHandler)
+      bpm_counter_window_update_bpm, NULL /*up_handler*/, NULL /*context*/);
 }
 
 static void bpm_counter_window_load(Window *window) {
