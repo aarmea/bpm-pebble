@@ -14,7 +14,7 @@ struct time_ms_t difftime_time_ms_t(struct time_ms_t a, struct time_ms_t b) {
   // Intentionally using a signed type for milliseconds to simplify carrying
   // into seconds. Well-formed time_ms_t values shouldn't have milliseconds
   // values above 999 anyway, which is well within the range of int16_t.
-  int16_t ms_with_carry = a.ms - b.ms;
+  int16_t ms_with_carry = (int16_t) a.ms - b.ms;
 
   diff.s = a.s - b.s + ms_with_carry / 1000;
 
@@ -36,7 +36,7 @@ void bpm_update(struct time_ms_t time_now) {
   // millisseconds (or 50 days (!)) ago. It's probably safe to say this will
   // never happen.
   uint32_t total_time_ms = total_time.s * 1000 + total_time.ms;
-  s_bpm = 1000 * 60 * 10 * s_tap_count / total_time_ms;
+  s_bpm = (uint32_t) 1000 * 60 * 10 * s_tap_count / total_time_ms;
 }
 
 void bpm_manual_tap() {
