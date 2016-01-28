@@ -31,6 +31,8 @@ void bpm_update(struct time_ms_t time_now) {
   }
 
   struct time_ms_t total_time = difftime_time_ms_t(time_now, s_first_tap);
+  APP_LOG(APP_LOG_LEVEL_INFO, "difftime_time_ms_t returned %d.%.3ds", (int)
+      total_time.s, total_time.ms);
 
   // This representation will overflow if s_first_tap is more than 2^32
   // millisseconds (or 50 days (!)) ago. It's probably safe to say this will
@@ -45,10 +47,12 @@ void bpm_manual_tap() {
   if (difftime_time_ms_t(time_now, s_last_tap).s >= TAP_TIMEOUT_SECONDS) {
     // First launch, or too much time has passed since the last press
     time_ms(&s_first_tap.s, &s_first_tap.ms);
+    APP_LOG(APP_LOG_LEVEL_INFO, "First tap");
     s_tap_count = 0;
     s_bpm = 0;
   } else {
     // Normal case
+    APP_LOG(APP_LOG_LEVEL_INFO, "Normal tap");
     ++s_tap_count;
     bpm_update(time_now);
   }
