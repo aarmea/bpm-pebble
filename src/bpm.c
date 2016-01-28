@@ -8,19 +8,25 @@ static uint16_t s_tap_count = 0;
 static bpm10_t s_bpm = 0;
 
 struct time_ms_t difftime_time_ms_t(struct time_ms_t a, struct time_ms_t b) {
-  // TODO: What if b < a? How do we even check for this scenario?
+  // The time_ms_t structure is only capable of representing positive times. If
+  // we are called with a < b, return the absolute value of the actual result.
+  if (a.s < b.s || (a.s == b.s && a.ms < b.ms)) {
+    APP_LOG(APP_LOG_LEVEL_INFO, "difftime called with a < b");
+    struct time_ms_t temp = b;
+    b = a;
+    a = temp;
+  }
+
+  // Carry milliseconds into seconds if necessary
+  if (a.ms < b.ms) {
+    a.ms += 1000;
+    a.s -= 1;
+  }
+
   struct time_ms_t diff;
+  diff.s = a.s - b.s;
+  diff.ms = a.ms - b.ms;
 
-  // Intentionally using a signed type for milliseconds to simplify carrying
-  // into seconds. Well-formed time_ms_t values shouldn't have milliseconds
-  // values above 999 anyway, which is well within the range of int16_t.
-  int16_t ms_with_carry = (int16_t) a.ms - b.ms;
-
-  diff.s = a.s - b.s + ms_with_carry / 1000;
-
-  // The % operator returns a value of the sign of the dividend. This is needed
-  // to make sure that we always get a positive value within [0, 1000)
-  diff.ms = (ms_with_carry % 1000 + 1000) % 1000;
   return diff;
 }
 
