@@ -44,10 +44,11 @@ static void bpm_update(struct time_ms_t time_now) {
 void bpm_manual_tap() {
   struct time_ms_t time_now;
   time_ms(&time_now.s, &time_now.ms);
-  if (difftime_time_ms_t(time_now, s_last_tap).s >= TAP_TIMEOUT_SECONDS) {
+  if ((s_first_tap.s == 0 && s_first_tap.ms == 0) ||
+      difftime_time_ms_t(time_now, s_last_tap).s >= TAP_TIMEOUT_SECONDS) {
     // First launch, or too much time has passed since the last press
-    time_ms(&s_first_tap.s, &s_first_tap.ms);
     APP_LOG(APP_LOG_LEVEL_INFO, "First tap");
+    s_first_tap = time_now;
     s_tap_count = 0;
     s_bpm = 0;
   } else {
