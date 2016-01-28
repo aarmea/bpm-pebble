@@ -24,7 +24,7 @@ struct time_ms_t difftime_time_ms_t(struct time_ms_t a, struct time_ms_t b) {
   return diff;
 }
 
-void bpm_update(struct time_ms_t time_now) {
+static void bpm_update(struct time_ms_t time_now) {
   if (s_tap_count == 0) {
     s_bpm = 0;
     return;
