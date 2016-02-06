@@ -18,6 +18,16 @@
         "type": "png",
         "name": "ICON_TEMPO_TAP",
         "file": "icons/tempo_tap.png"
+      },
+      {
+        "type": "png",
+        "name": "ICON_PLAY",
+        "file": "icons/play.png"
+      },
+      {
+        "type": "png",
+        "name": "ICON_PAUSE",
+        "file": "icons/pause.png"
       }
     ]
   }
