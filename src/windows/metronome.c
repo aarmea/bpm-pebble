@@ -103,6 +103,7 @@ static void metronome_window_load(Window *window) {
   action_bar_layer_add_to_window(s_action_bar_layer, window);
 
   metronome_window_update_bpm(NULL /*context*/);
+  metronome_window_start();
 }
 
 static void metronome_window_unload(Window *window) {
