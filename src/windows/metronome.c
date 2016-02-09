@@ -101,6 +101,8 @@ static void metronome_window_load(Window *window) {
 }
 
 static void metronome_window_unload(Window *window) {
+  metronome_window_stop();
+
   text_layer_destroy(s_bpm_text_layer);
   text_layer_destroy(s_metronome_hint_text_layer);
   action_bar_layer_destroy(s_action_bar_layer);
