@@ -11,6 +11,11 @@ static TextLayer *s_bpm_hint_text_layer;
 static ActionBarLayer *s_action_bar_layer;
 static GPoint s_center;
 
+static void bpm_counter_window_open_metronome(void *context) {
+  if (bpm_get_bpm10() != 0)
+    metronome_window_push();
+}
+
 static void bpm_counter_window_update_bpm(void *context) {
   bpm_manual_tap();
   bpm10_t bpm = bpm_get_bpm10();
@@ -23,7 +28,7 @@ static void bpm_counter_window_update_bpm(void *context) {
 
 static void bpm_counter_window_click_config() {
   window_single_click_subscribe(BUTTON_ID_UP, (ClickHandler)
-      metronome_window_push);
+      bpm_counter_window_open_metronome);
   window_raw_click_subscribe(BUTTON_ID_SELECT, (ClickHandler)
       bpm_counter_window_update_bpm, NULL /*up_handler*/, NULL /*context*/);
 }
