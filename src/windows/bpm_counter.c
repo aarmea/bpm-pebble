@@ -18,7 +18,7 @@ static void bpm_counter_window_update_bpm(void *context) {
     snprintf(s_bpm_text_buffer, BPM_TEXT_BUFFER_SIZE, "%s", BPM_DEFAULT);
   else
     snprintf(s_bpm_text_buffer, BPM_TEXT_BUFFER_SIZE, "%u.%u", bpm/10, bpm%10);
-  layer_mark_dirty((Layer *) s_bpm_hint_text_layer);
+  layer_mark_dirty((Layer *) s_bpm_text_layer);
 }
 
 static void bpm_counter_window_click_config() {

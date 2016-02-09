@@ -14,3 +14,5 @@ struct time_ms_t difftime_time_ms_t(struct time_ms_t a, struct time_ms_t b);
 void bpm_manual_tap();
 
 bpm10_t bpm_get_bpm10();
+
+uint16_t bpm_bpm10_to_period_ms(bpm10_t bpm);
