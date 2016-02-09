@@ -13,6 +13,11 @@ static GPoint s_center;
 
 static AppTimer *s_metronome_timer = NULL;
 
+static VibePattern METRONOME_VIBE_PATTERN = {
+  .durations = (const uint32_t const []) { METRONOME_VIBE_DURATION_MS },
+  .num_segments = 1
+};
+
 static void metronome_window_update_bpm() {
   bpm10_t bpm = bpm_get_bpm10();
   if (bpm == 0)
@@ -23,7 +28,7 @@ static void metronome_window_update_bpm() {
 }
 
 static void metronome_tick(void *callback_data) {
-  vibes_short_pulse();
+  vibes_enqueue_custom_pattern(METRONOME_VIBE_PATTERN);
   s_metronome_timer =
     app_timer_register(bpm_bpm10_to_period_ms(bpm_get_bpm10()),
         (AppTimerCallback) metronome_tick, NULL /*callback_data*/);
