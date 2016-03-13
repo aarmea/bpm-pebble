@@ -27,9 +27,9 @@ static void bpm_counter_window_update_bpm(void *context) {
 }
 
 static void bpm_counter_window_click_config() {
-  window_single_click_subscribe(BUTTON_ID_UP, (ClickHandler)
+  window_single_click_subscribe(BUTTON_ID_SELECT, (ClickHandler)
       bpm_counter_window_open_metronome);
-  window_raw_click_subscribe(BUTTON_ID_SELECT, (ClickHandler)
+  window_raw_click_subscribe(BUTTON_ID_UP, (ClickHandler)
       bpm_counter_window_update_bpm, NULL /*up_handler*/, NULL /*context*/);
 }
 
@@ -71,9 +71,8 @@ static void bpm_counter_window_load(Window *window) {
   layer_add_child(root_layer, (Layer *) s_bpm_hint_text_layer);
 
   s_action_bar_layer = action_bar_layer_create();
-  action_bar_layer_set_icon(s_action_bar_layer, BUTTON_ID_UP, ICON_PLAY);
-  action_bar_layer_set_icon(s_action_bar_layer, BUTTON_ID_SELECT,
-      ICON_TEMPO_TAP);
+  action_bar_layer_set_icon(s_action_bar_layer, BUTTON_ID_SELECT, ICON_PLAY);
+  action_bar_layer_set_icon(s_action_bar_layer, BUTTON_ID_UP, ICON_TEMPO_TAP);
   action_bar_layer_set_click_config_provider(s_action_bar_layer,
       bpm_counter_window_click_config);
   action_bar_layer_add_to_window(s_action_bar_layer, window);
