@@ -54,9 +54,23 @@ static void metronome_window_start_stop(void *context) {
     metronome_window_start();
 }
 
+static void metronome_window_increment_bpm(void *context) {
+  bpm_set_bpm10(bpm_get_bpm10() + 1);
+  metronome_window_update_bpm();
+}
+
+static void metronome_window_decrement_bpm(void *context) {
+  bpm_set_bpm10(bpm_get_bpm10() - 1);
+  metronome_window_update_bpm();
+}
+
 static void metronome_window_click_config() {
   window_single_click_subscribe(BUTTON_ID_SELECT, (ClickHandler)
       metronome_window_start_stop);
+  window_single_click_subscribe(BUTTON_ID_UP, (ClickHandler)
+      metronome_window_increment_bpm);
+  window_single_click_subscribe(BUTTON_ID_DOWN, (ClickHandler)
+      metronome_window_decrement_bpm);
 }
 
 static void metronome_window_load(Window *window) {
@@ -98,6 +112,9 @@ static void metronome_window_load(Window *window) {
 
   s_action_bar_layer = action_bar_layer_create();
   action_bar_layer_set_icon(s_action_bar_layer, BUTTON_ID_SELECT, ICON_PLAY);
+  action_bar_layer_set_icon(s_action_bar_layer, BUTTON_ID_UP, ICON_TEMPO_UP);
+  action_bar_layer_set_icon(s_action_bar_layer, BUTTON_ID_DOWN,
+      ICON_TEMPO_DOWN);
   action_bar_layer_set_click_config_provider(s_action_bar_layer,
       metronome_window_click_config);
   action_bar_layer_add_to_window(s_action_bar_layer, window);

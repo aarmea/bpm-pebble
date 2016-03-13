@@ -70,6 +70,10 @@ bpm10_t bpm_get_bpm10() {
   return s_bpm;
 }
 
+void bpm_set_bpm10(bpm10_t bpm) {
+  s_bpm = bpm;
+}
+
 uint16_t bpm_bpm10_to_period_ms(bpm10_t bpm) {
   return 1000 * 60 * 10 / bpm;
 }

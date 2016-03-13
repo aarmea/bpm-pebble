@@ -1,6 +1,8 @@
 #include "pebble.h"
 
 extern GBitmap *ICON_TEMPO_TAP;
+extern GBitmap *ICON_TEMPO_UP;
+extern GBitmap *ICON_TEMPO_DOWN;
 extern GBitmap *ICON_PLAY;
 extern GBitmap *ICON_PAUSE;
 
