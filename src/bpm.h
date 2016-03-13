@@ -13,6 +13,9 @@ struct time_ms_t difftime_time_ms_t(struct time_ms_t a, struct time_ms_t b);
 
 void bpm_manual_tap();
 
+char *bpm_get_text_buffer();
+void bpm_update_text_buffer();
+
 bpm10_t bpm_get_bpm10();
 void bpm_set_bpm10(bpm10_t bpm);
 

@@ -5,7 +5,6 @@
 #include "../icons.h"
 
 static Window *s_metronome_window;
-static char s_bpm_text_buffer[BPM_TEXT_BUFFER_SIZE] = BPM_DEFAULT;
 static TextLayer *s_bpm_text_layer;
 static TextLayer *s_metronome_hint_text_layer;
 static ActionBarLayer *s_action_bar_layer;
@@ -19,11 +18,7 @@ static VibePattern METRONOME_VIBE_PATTERN = {
 };
 
 static void metronome_window_update_bpm() {
-  bpm10_t bpm = bpm_get_bpm10();
-  if (bpm == 0)
-    snprintf(s_bpm_text_buffer, BPM_TEXT_BUFFER_SIZE, "%s", BPM_DEFAULT);
-  else
-    snprintf(s_bpm_text_buffer, BPM_TEXT_BUFFER_SIZE, "%u.%u", bpm/10, bpm%10);
+  bpm_update_text_buffer();
   layer_mark_dirty((Layer *) s_bpm_text_layer);
 }
 
@@ -91,7 +86,7 @@ static void metronome_window_load(Window *window) {
   text_layer_set_overflow_mode(s_bpm_text_layer, GTextOverflowModeWordWrap);
   text_layer_set_text_alignment(s_bpm_text_layer, GTextAlignmentRight);
   text_layer_set_font(s_bpm_text_layer, fonts_get_system_font(BPM_FONT));
-  text_layer_set_text(s_bpm_text_layer, s_bpm_text_buffer);
+  text_layer_set_text(s_bpm_text_layer, bpm_get_text_buffer());
   layer_add_child(root_layer, (Layer *) s_bpm_text_layer);
 
   s_metronome_hint_text_layer = text_layer_create((GRect) {
@@ -119,7 +114,7 @@ static void metronome_window_load(Window *window) {
       metronome_window_click_config);
   action_bar_layer_add_to_window(s_action_bar_layer, window);
 
-  metronome_window_update_bpm(NULL /*context*/);
+  metronome_window_update_bpm();
   metronome_window_start();
 }
 

@@ -6,6 +6,7 @@ static struct time_ms_t s_first_tap = { .s = 0, .ms = 0 };
 static struct time_ms_t s_last_tap = { .s = 0, .ms = 0 };
 static uint16_t s_tap_count = 0;
 static bpm10_t s_bpm = 0;
+static char s_bpm_text_buffer[BPM_TEXT_BUFFER_SIZE] = BPM_DEFAULT;
 
 struct time_ms_t difftime_time_ms_t(struct time_ms_t a, struct time_ms_t b) {
   // The time_ms_t structure is only capable of representing positive times. If
@@ -45,6 +46,18 @@ static void bpm_update(struct time_ms_t time_now) {
   // never happen.
   uint32_t total_time_ms = total_time.s * 1000 + total_time.ms;
   s_bpm = (uint32_t) 1000 * 60 * 10 * s_tap_count / total_time_ms;
+}
+
+char *bpm_get_text_buffer() {
+  return s_bpm_text_buffer;
+}
+
+void bpm_update_text_buffer() {
+  if (s_bpm == 0)
+    snprintf(s_bpm_text_buffer, BPM_TEXT_BUFFER_SIZE, "%s", BPM_DEFAULT);
+  else
+    snprintf(s_bpm_text_buffer, BPM_TEXT_BUFFER_SIZE, "%u.%u", s_bpm / 10,
+        s_bpm % 10);
 }
 
 void bpm_manual_tap() {
