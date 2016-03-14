@@ -62,9 +62,11 @@ static void metronome_window_decrement_bpm(void *context) {
 static void metronome_window_click_config() {
   window_single_click_subscribe(BUTTON_ID_SELECT, (ClickHandler)
       metronome_window_start_stop);
-  window_single_click_subscribe(BUTTON_ID_UP, (ClickHandler)
+  window_single_repeating_click_subscribe(BUTTON_ID_UP,
+      METRONOME_EDIT_TAP_REPEAT_MS, (ClickHandler)
       metronome_window_increment_bpm);
-  window_single_click_subscribe(BUTTON_ID_DOWN, (ClickHandler)
+  window_single_repeating_click_subscribe(BUTTON_ID_DOWN,
+      METRONOME_EDIT_TAP_REPEAT_MS, (ClickHandler)
       metronome_window_decrement_bpm);
 }
 
